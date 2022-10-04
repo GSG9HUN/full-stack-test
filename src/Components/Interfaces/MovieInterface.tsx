@@ -9,7 +9,7 @@ export interface IMovieResult {
     cast: Array<ICastDetails>
 }
 
-interface ICastDetails{
+export interface ICastDetails{
     id:string
     person:IPerson,
     role:IRole

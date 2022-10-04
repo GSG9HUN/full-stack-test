@@ -5,6 +5,7 @@ export const searchMoviesQuery = (title: string) => {
     name
     overview
     score
+    socialMedia{imdb}
     releaseDate
     cast {
       id
@@ -20,5 +21,3 @@ export const searchMoviesQuery = (title: string) => {
   }
 }`
 }
-
-export const API_ENDPOINT: string = 'https://tmdb.sandbox.zoosh.ie/dev/grphql';
