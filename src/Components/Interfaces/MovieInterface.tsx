@@ -1,24 +1,24 @@
 import {Key} from "react";
 
-export interface IMovieResult {
+export interface Movie {
     id:Key
     name:string,
     overview:string,
     score:number,
     releaseDate: string,
-    cast: Array<ICastDetails>
+    cast: Array<CastDetails>
 }
 
-export interface ICastDetails{
+export interface CastDetails{
     id:string
-    person:IPerson,
-    role:IRole
+    person:Person,
+    role:Role
 }
 
-interface IPerson{
+interface Person{
     name:string,
 }
 
-interface IRole{
+interface Role{
     character:string
 }

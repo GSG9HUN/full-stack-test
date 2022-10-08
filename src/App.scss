@@ -1,11 +1,12 @@
-*{
+* {
   margin: 0;
   padding: 0;
 }
 
-html, body,#root, .App, .content {
+html, body, #root, .App {
   height: 100%
 }
+
 .App {
   text-align: center;
 }
@@ -21,12 +22,12 @@ html, body,#root, .App, .content {
   color: white;
 }
 
-.spinner{
+.spinner {
   display: inline-block;
   vertical-align: middle;
 }
 
-.spinner > span{
+.spinner > span {
   width: 100px !important;
   vertical-align: middle;
   height: 100px !important;
@@ -34,7 +35,7 @@ html, body,#root, .App, .content {
 
 .table-container {
   width: 80%;
-  margin:2% auto;
+  margin: 2% auto;
 
 
   thead {
@@ -50,6 +51,7 @@ html, body,#root, .App, .content {
   table {
     width: 100%;
     border: 1px solid black;
+
     td {
       text-align: center;
       padding-top: 2%;
@@ -59,5 +61,24 @@ html, body,#root, .App, .content {
     tr:nth-child(2n) {
       padding-top: 50%;
     }
+  }
+}
+
+.spinner {
+  position: absolute;
+  top: 50%;
+}
+
+.flex {
+  display: flex;
+
+  .wiki {
+    width: 100%;
+  }
+}
+
+.links {
+  a {
+    display: block !important;
   }
 }

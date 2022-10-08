@@ -1,10 +1,10 @@
-import {IMovieResult} from "../Interfaces/MovieInterface";
+import {Movie} from "../Interfaces/MovieInterface";
 import {Table} from "@mui/material";
 import {Link} from "@mui/material";
 import React, {ReactNode} from "react";
 
 interface Prop {
-    searchResult?: IMovieResult[],
+    searchResult?: Movie[],
     handleSelectMovie: Function,
 }
 
@@ -29,7 +29,7 @@ export function MoviesList({searchResult, handleSelectMovie}: Prop) {
 
     return (
         <React.Fragment>
-            {searchResult?.length ?
+            {searchResult ? searchResult?.length ?
                 <div className={'table-container'}>
                     <Table className={'table'}>
                         <thead>
@@ -45,7 +45,7 @@ export function MoviesList({searchResult, handleSelectMovie}: Prop) {
                         </tbody>
                     </Table>
                 </div>
-                : <h1>There is no movie with this title.</h1>}
+                : <h1>There is no movie with this title.</h1> : ''}
         </React.Fragment>
     )
 }

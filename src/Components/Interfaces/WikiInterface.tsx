@@ -1,4 +1,4 @@
-export interface IWikiResult{
+export interface Wiki{
     extract:string,
     title:string
 }

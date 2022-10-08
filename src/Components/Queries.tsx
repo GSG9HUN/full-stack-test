@@ -1,3 +1,5 @@
+import {Key} from "react";
+
 export const searchMoviesQuery = (title: string) => {
     return `query SearchMovies {
   searchMovies(query: "${title}") {
@@ -5,7 +7,6 @@ export const searchMoviesQuery = (title: string) => {
     name
     overview
     score
-    socialMedia{imdb}
     releaseDate
     cast {
       id
@@ -17,6 +18,20 @@ export const searchMoviesQuery = (title: string) => {
           character
         }
       }
+    }
+  }
+}`
+}
+
+export const getRelatedMoviesQuery = (id: Key) => {
+    return `query getMovie {
+  movie(id: ${id}) {
+    recommended{
+        id
+        name
+        overview
+        score
+        releaseDate
     }
   }
 }`
