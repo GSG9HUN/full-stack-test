@@ -14,18 +14,18 @@ function App() {
 
     const [movieName, setMovieName] = useState<string>('');
     const [movies, setMovies] = useState<Movie[] | undefined>(undefined);
-    const [loading, setLoading] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     const [selectedMovie, setSelectedMovie] = useState<Movie>();
 
 
     const getMovies = (): void => {
-        setLoading(true);
+        setIsLoading(true);
         setSelectedMovie(undefined);
         axios.post(GRAPHQL_API_ENDPOINT, {query: searchMoviesQuery(movieName)}).then((response) => {
             setMovies(response.data.data.searchMovies)
-            setLoading(false);
+            setIsLoading(false);
         }).catch(() => {
-            setLoading(false)
+            setIsLoading(false)
         })
     }
 
@@ -39,11 +39,11 @@ function App() {
     }
 
     const getRelatedMovies =(id:Key)=>{
-        setLoading(true)
+        setIsLoading(true)
         setSelectedMovie(undefined)
         axios.post(GRAPHQL_API_ENDPOINT, {query: getRelatedMoviesQuery(id)}).then((response) => {
             setMovies([...response.data.data.movie.recommended]);
-            setLoading(false)
+            setIsLoading(false)
         })
     }
 
@@ -60,7 +60,7 @@ function App() {
             </header>
             <div className={selectedMovie ? "content flex" : "content"}>
                 {
-                    loading ? <Spinner/> : <MoviesList searchResult={movies} handleSelectMovie={selectMovie}/>
+                    isLoading ? <Spinner/> : <MoviesList searchResult={movies} handleSelectMovie={selectMovie}/>
                 }
                 {selectedMovie && <Wikipedia selectedMovie={selectedMovie} getRelatedMovies={getRelatedMovies}/>}
             </div>
