@@ -1,4 +1,5 @@
 import {Movie} from "../Interfaces/MovieInterface";
+import React from 'react';
 import {ReactNode, useEffect, useState} from "react";
 import Spinner from "../SpinnerComponent/Spinner";
 import axios from "axios";
@@ -7,12 +8,12 @@ import {Wiki} from "../Interfaces/WikiInterface";
 import {IconButton, Link} from "@mui/material";
 import {IMDB, WIKIPEDIA} from "../PageURLs";
 
-interface Props {
+interface WikipediaProps {
     selectedMovie: Movie,
-    getRelatedMovies:Function
+    getRelatedMovies: Function
 }
 
-export default function Wikipedia({selectedMovie,getRelatedMovies}: Props) {
+export default function Wikipedia({selectedMovie, getRelatedMovies}: WikipediaProps) {
 
     const [loading, setLoading] = useState<boolean>(true);
     const [wikiResult, setWikiResult] = useState<Wiki>();
@@ -26,12 +27,15 @@ export default function Wikipedia({selectedMovie,getRelatedMovies}: Props) {
                 format: "json",
                 origin: "*",
                 prop: "extracts",
-                explaintext: 1,
-                titles: selectedMovie.name
+                explaintext: true,
+                sections: 1,
+                exintro: true,
+                titles: selectedMovie.name,
+
             }
         })
             .then((response) => {
-                console.log(response.data)
+
                 let objectKey: string = Object.keys(response.data.query.pages)[0];
                 let axiosResult: Wiki = response.data.query.pages[objectKey];
 
@@ -39,37 +43,35 @@ export default function Wikipedia({selectedMovie,getRelatedMovies}: Props) {
                 setWikiLink(WIKIPEDIA + `${axiosResult.title}`)
                 setLoading(false);
             })
-
         axios.get(IMDB_ENDPOINT + selectedMovie.name)
             .then((response) => {
                 let releaseDateYear = new Date(selectedMovie.releaseDate).getFullYear();
-                let movieID: string = response.data.results.find((result: any) => {
+                let movieID: string = response.data.results?.find((result: any) => {
                     return result.description.includes(releaseDateYear)
                 })?.id;
                 movieID ? setIMDBLink(IMDB + `${movieID}`) : setIMDBLink('');
             })
     }, [selectedMovie])
-
     const openInNewTab = (link: string) => {
         window.open(link, "_blank");
     }
 
-    const handleButtonClick =()=>{
+    const handleButtonClick = () => {
         getRelatedMovies(selectedMovie.id);
     }
 
     const renderWikiApiResult = (): ReactNode => {
-        let firstParagraph = wikiResult?.extract?.split('.');
+
         return (
-            <div>
+            <React.Fragment>
                 <h1>{wikiResult?.title}</h1>
-                <p>{firstParagraph ? firstParagraph[0] : 'No result on wikipedia.'}</p>
+                <p>{wikiResult?.extract ?? 'No result on wikipedia.'}</p>
                 <div className={'links'}>
-                    {firstParagraph && <Link onClick={() => openInNewTab(wikiLink)}>Open in Wikipedia</Link>}
+                    {wikiResult?.extract && <Link onClick={() => openInNewTab(wikiLink)}>Open in Wikipedia</Link>}
                     {IMDLink ? <Link onClick={() => openInNewTab(IMDLink)}>Open in IMDB</Link> : ''}
                 </div>
-                <IconButton onClick={handleButtonClick}>Related movies</IconButton>
-            </div>)
+                <IconButton className={'relatedButton'} onClick={handleButtonClick}>Related movies</IconButton>
+            </React.Fragment>)
     }
 
     return (
