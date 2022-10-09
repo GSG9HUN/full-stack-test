@@ -1,4 +1,4 @@
-export interface Wiki{
-    extract:string,
-    title:string
+export interface Wiki {
+    extract: string,
+    title: string
 }

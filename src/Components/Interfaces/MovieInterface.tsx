@@ -1,10 +1,10 @@
 import {Key} from "react";
 
 export interface Movie {
-    id:Key
-    name:string,
-    overview:string,
-    score:number,
+    id: Key
+    name: string,
+    overview: string,
+    score: number,
     releaseDate: string,
     cast: Array<CastDetails>
 }

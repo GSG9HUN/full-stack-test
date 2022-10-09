@@ -3,12 +3,12 @@ import {Table} from "@mui/material";
 import {Link} from "@mui/material";
 import React, {ReactNode} from "react";
 
-interface Prop {
+interface MoviesListProp {
     searchResult?: Movie[],
     handleSelectMovie: Function,
 }
 
-export function MoviesList({searchResult, handleSelectMovie}: Prop) {
+export function MoviesList({searchResult, handleSelectMovie}: MoviesListProp) {
 
 
     const renderMovies = (): ReactNode => {
